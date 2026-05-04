@@ -15,6 +15,8 @@ export default defineConfig({
                         return "fluentui-icons";
                     } else if (id.includes("@fluentui/react")) {
                         return "fluentui-react";
+                    } else if (id.includes("sigma") || id.includes("graphology")) {
+                        return "graph-vendor";
                     } else if (id.includes("node_modules")) {
                         return "vendor";
                     }
@@ -25,8 +27,9 @@ export default defineConfig({
     },
     server: {
         proxy: {
+            "/api": "http://localhost:8000",
             "/chat": "http://localhost:8000"
         },
-        host: "127.0.0.1",
+        host: "127.0.0.1"
     }
 });
