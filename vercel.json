@@ -1,5 +1,5 @@
 {
-  "buildCommand": "cd src/frontend && npm ci && npm run build",
+  "buildCommand": "cd src/frontend && npm install && npm run build",
   "outputDirectory": "src/backend/static",
   "framework": null,
   "functions": {
