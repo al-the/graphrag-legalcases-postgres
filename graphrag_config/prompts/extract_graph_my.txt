@@ -1,0 +1,60 @@
+-Goal-
+Given a text document that may be in English or Malay (Bahasa Malaysia), and a list of entity types, identify all entities of those types from the text and all relationships among the identified entities.
+
+-Steps-
+1. Identify all entities. For each identified entity, extract the following information:
+- entity_name: Name of the entity. Use the most common English name if both languages appear; include the Malay name in parentheses where helpful. Capitalise the name.
+- entity_type: One of the following types: [{entity_types}]
+- entity_description: Comprehensive description of the entity's attributes and activities
+Format each entity as ("entity"{{tuple_delimiter}}<entity_name>{{tuple_delimiter}}<entity_type>{{tuple_delimiter}}<entity_description>)
+
+2. From the entities identified in step 1, identify all pairs of (source_entity, target_entity) that are *clearly related* to each other.
+For each pair of related entities, extract the following information:
+- source_entity: name of the source entity as identified in step 1
+- target_entity: name of the target entity as identified in step 1
+- relationship_description: explanation as to why you think the source entity and the target entity are related to each other
+- relationship_strength: a numeric score between 1 to 10, indicating strength of the relationship between the source entity and target entity
+Format each relationship as ("relationship"{{tuple_delimiter}}<source_entity>{{tuple_delimiter}}<target_entity>{{tuple_delimiter}}<relationship_description>{{tuple_delimiter}}<relationship_strength>)
+
+3. Return output in English as a single list of all the entities and relationships identified in steps 1 and 2. Use **{{record_delimiter}}** as the list delimiter.
+
+4. When finished, output {{completion_delimiter}}
+
+-Malaysian Context Examples-
+######################
+Example 1:
+Entity types: ORGANIZATION, PERSON, LAW, MINISTRY, REGULATION
+Text:
+Bank Negara Malaysia (BNM) telah mengeluarkan garis panduan baru berkenaan aset digital. Gabenor BNM, Tan Sri Nor Shamsiah, mengumumkan bahawa institusi kewangan perlu mematuhi Akta Bank dan Institusi Kewangan 1989 (BAFIA) dan Akta Perkhidmatan Kewangan 2013.
+######################
+Output:
+("entity"{{tuple_delimiter}}BANK NEGARA MALAYSIA (BNM){{tuple_delimiter}}ORGANIZATION{{tuple_delimiter}}Central bank of Malaysia responsible for monetary policy, financial regulation, and issuing guidelines for financial institutions){{record_delimiter}}
+("entity"{{tuple_delimiter}}TAN SRI NOR SHAMSIAH{{tuple_delimiter}}PERSON{{tuple_delimiter}}Governor of Bank Negara Malaysia, announced new digital asset guidelines){{record_delimiter}}
+("entity"{{tuple_delimiter}}BANKING AND FINANCIAL INSTITUTIONS ACT 1989 (BAFIA){{tuple_delimiter}}LAW{{tuple_delimiter}}Malaysian law governing banks and financial institutions, referenced in digital asset compliance requirements){{record_delimiter}}
+("entity"{{tuple_delimiter}}FINANCIAL SERVICES ACT 2013 (Akta Perkhidmatan Kewangan 2013){{tuple_delimiter}}LAW{{tuple_delimiter}}Malaysian financial services legislation that financial institutions must comply with){{record_delimiter}}
+("relationship"{{tuple_delimiter}}BANK NEGARA MALAYSIA (BNM){{tuple_delimiter}}TAN SRI NOR SHAMSIAH{{tuple_delimiter}}Tan Sri Nor Shamsiah is the Governor of Bank Negara Malaysia{{tuple_delimiter}}9){{record_delimiter}}
+("relationship"{{tuple_delimiter}}BANK NEGARA MALAYSIA (BNM){{tuple_delimiter}}BANKING AND FINANCIAL INSTITUTIONS ACT 1989 (BAFIA){{tuple_delimiter}}BNM enforces compliance with BAFIA for financial institutions{{tuple_delimiter}}8){{record_delimiter}}
+("relationship"{{tuple_delimiter}}BANK NEGARA MALAYSIA (BNM){{tuple_delimiter}}FINANCIAL SERVICES ACT 2013{{tuple_delimiter}}BNM regulates financial institutions under the Financial Services Act 2013{{tuple_delimiter}}8)
+{{completion_delimiter}}
+######################
+Example 2:
+Entity types: ORGANIZATION, FINANCIAL_INSTRUMENT, METRIC, EVENT
+Text:
+Petronas reported revenue of RM 248 billion for FY2023, driven by strong LNG exports. The company issued RM 5 billion in sukuk to fund its Net Zero Roadmap 2050 initiative.
+######################
+Output:
+("entity"{{tuple_delimiter}}PETRONAS{{tuple_delimiter}}ORGANIZATION{{tuple_delimiter}}Malaysia's national oil company (Petroliam Nasional Berhad), reporting strong FY2023 revenues from LNG exports){{record_delimiter}}
+("entity"{{tuple_delimiter}}RM 248 BILLION FY2023 REVENUE{{tuple_delimiter}}METRIC{{tuple_delimiter}}Petronas total revenue for financial year 2023, amounting to RM 248 billion){{record_delimiter}}
+("entity"{{tuple_delimiter}}SUKUK RM 5 BILLION{{tuple_delimiter}}FINANCIAL_INSTRUMENT{{tuple_delimiter}}Islamic bond (sukuk) worth RM 5 billion issued by Petronas to fund sustainability initiatives){{record_delimiter}}
+("entity"{{tuple_delimiter}}NET ZERO ROADMAP 2050{{tuple_delimiter}}EVENT{{tuple_delimiter}}Petronas strategic initiative to achieve net zero carbon emissions by 2050){{record_delimiter}}
+("relationship"{{tuple_delimiter}}PETRONAS{{tuple_delimiter}}SUKUK RM 5 BILLION{{tuple_delimiter}}Petronas issued the RM 5 billion sukuk to finance its Net Zero Roadmap 2050{{tuple_delimiter}}9){{record_delimiter}}
+("relationship"{{tuple_delimiter}}PETRONAS{{tuple_delimiter}}NET ZERO ROADMAP 2050{{tuple_delimiter}}Petronas is implementing the Net Zero Roadmap 2050 sustainability strategy{{tuple_delimiter}}10)
+{{completion_delimiter}}
+######################
+
+-Real Data-
+######################
+Entity types: {entity_types}
+Text: {input_text}
+######################
+Output:
