@@ -8,12 +8,12 @@ import "./index.css";
 
 import Layout from "./pages/layout/Layout";
 import Chat from "./pages/chat/Chat";
-import LandingPage from "./pages/LandingPage";
-import LoginPage from "./pages/LoginPage";
-import RegisterPage from "./pages/RegisterPage";
-import GraphExplorer from "./pages/GraphExplorer";
-import DocumentBrowser from "./pages/DocumentBrowser";
-import WorkflowDashboard from "./pages/WorkflowDashboard";
+import { LandingPage } from "./pages/LandingPage";
+import { LoginPage } from "./pages/LoginPage";
+import { RegisterPage } from "./pages/RegisterPage";
+import { GraphExplorer } from "./pages/GraphExplorer";
+import { DocumentBrowser } from "./pages/DocumentBrowser";
+import { WorkflowDashboard } from "./pages/WorkflowDashboard";
 
 initializeIcons();
 

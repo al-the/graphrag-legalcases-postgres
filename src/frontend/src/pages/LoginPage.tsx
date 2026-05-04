@@ -1,7 +1,9 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { login, setToken } from "../api/authApi";
 
-export function LoginPage({ onSuccess, onRegister }: { onSuccess: () => void; onRegister: () => void }) {
+export function LoginPage() {
+  const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState<string | null>(null);
@@ -14,7 +16,7 @@ export function LoginPage({ onSuccess, onRegister }: { onSuccess: () => void; on
     try {
       const token = await login(email, password);
       setToken(token);
-      onSuccess();
+      navigate("/app");
     } catch (err: any) {
       setError(err.message);
     } finally {
@@ -40,7 +42,7 @@ export function LoginPage({ onSuccess, onRegister }: { onSuccess: () => void; on
         </form>
         <p style={styles.foot}>
           No account?{" "}
-          <button onClick={onRegister} style={styles.link}>Register</button>
+          <button onClick={() => navigate("/register")} style={styles.link}>Register</button>
         </p>
       </div>
     </div>

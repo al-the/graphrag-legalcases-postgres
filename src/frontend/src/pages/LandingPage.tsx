@@ -1,4 +1,5 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 
 const SOURCES = [
   { name: "Hansard Malaysia", desc: "Parliamentary debates (Dewan Rakyat & Dewan Negara)", flag: "🇲🇾" },
@@ -32,7 +33,9 @@ const FEATURES = [
   },
 ];
 
-export function LandingPage({ onLogin, onRegister }: { onLogin: () => void; onRegister: () => void }) {
+export function LandingPage() {
+  const navigate = useNavigate();
+
   return (
     <div style={styles.page}>
       {/* Hero */}
@@ -42,8 +45,8 @@ export function LandingPage({ onLogin, onRegister }: { onLogin: () => void; onRe
           A unified knowledge graph over Malaysian parliamentary, financial, statistical, and regulatory documents — powered by GraphRAG.
         </p>
         <div style={{ display: "flex", gap: 12, justifyContent: "center", flexWrap: "wrap" }}>
-          <button onClick={onRegister} style={styles.primaryBtn}>Get Started</button>
-          <button onClick={onLogin} style={styles.secondaryBtn}>Sign In</button>
+          <button onClick={() => navigate("/register")} style={styles.primaryBtn}>Get Started</button>
+          <button onClick={() => navigate("/login")} style={styles.secondaryBtn}>Sign In</button>
         </div>
       </section>
 

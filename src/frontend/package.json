@@ -20,6 +20,7 @@
     "@react-spring/web": "^9.7.3",
     "@sigma/edge-curve": "^3.1.0",
     "graphology": "^0.26.0",
+    "graphology-layout": "^0.6.1",
     "graphology-layout-forceatlas2": "^0.10.1",
     "marked": "^9.1.6",
     "dompurify": "^3.0.6",
